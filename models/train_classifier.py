@@ -102,7 +102,10 @@ def evaluate_model(model, X_test, Y_test, category_names):
         accuracy_list.append(accuracy_score(Y_test.iloc[:, idx], Y_pred[:, idx]))
         precision_list.append(report["weighted avg"]["precision"])
         recall_list.append(report["weighted avg"]["recall"])
-    
+        # print report for each category
+        print(category)
+        print(report)
+        
     # print overall metrics
     print("Average accuracy: {}".format(np.mean(np.array(accuracy_list))))
     print("Average weighted precision: {}".format(np.mean(np.array(precision_list))))
