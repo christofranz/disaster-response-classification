@@ -26,11 +26,11 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-df = pd.read_sql_table('YourTableName', engine)
+engine = create_engine('sqlite:///../data/DisasterResponses.db')
+df = pd.read_sql_table('DisasterResponses', engine)
 
 # load model
-model = joblib.load("../models/your_model_name.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -44,13 +44,15 @@ def index():
     genre_names = list(genre_counts.index)
     
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
                 Bar(
                     x=genre_names,
-                    y=genre_counts
+                    y=genre_counts,
+                    marker=dict(
+                        color = "grey"
+                    )
                 )
             ],
 
@@ -66,6 +68,40 @@ def index():
         }
     ]
     
+    # 
+    category_occurence = list((df.iloc[:, 4:] != 0).sum().sort_values(ascending=False) / df.shape[0])
+    category_names = list(df.iloc[:, 4:].columns)
+    category_names = [cat.replace("_", " ") for cat in category_names]
+    graphs.append(
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_occurence,
+                    marker=dict(
+                        color = category_occurence,
+                        colorscale = 'solar_r'
+                    )
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Categories',
+                'yaxis': {
+                    'title': "Proportion [%]"
+                },
+                'xaxis': {
+                    'title': {
+                        "text": "Category",
+                        "standoff": 15
+                    },
+                    'tickangle': -45,
+                    'automargin': True,
+                    'tickfont': {'size': 9}
+                }
+            }
+        }
+    )
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
