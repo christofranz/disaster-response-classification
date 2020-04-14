@@ -98,16 +98,15 @@ def evaluate_model(model, X_test, Y_test, category_names):
     for idx, category in enumerate(category_names):
         # classification report per category
         report = classification_report(Y_test.iloc[:, idx], Y_pred[:, idx], output_dict=True)
-        print(report)
         # accuracy, precision and recall for the category
         accuracy_list.append(accuracy_score(Y_test.iloc[:, idx], Y_pred[:, idx]))
-        precision_list.append(report["macro avg"]["precision"])
-        recall_list.append(report["macro avg"]["recall"])
+        precision_list.append(report["weighted avg"]["precision"])
+        recall_list.append(report["weighted avg"]["recall"])
     
     # print overall metrics
-    print("Overall Accuracy: {}".format(np.mean(np.array(accuracy_list))))
-    print("Overall Precision: {}".format(np.mean(np.array(precision_list))))
-    print("Overall Recall: {}".format(np.mean(np.array(recall_list))))
+    print("Average accuracy: {}".format(np.mean(np.array(accuracy_list))))
+    print("Average weighted precision: {}".format(np.mean(np.array(precision_list))))
+    print("Average weighted recall: {}".format(np.mean(np.array(recall_list))))
 
 
 def save_model(model, model_filepath):
