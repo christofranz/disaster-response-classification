@@ -33,7 +33,8 @@ Alternatively, you can directly install them with `pip install -r requirements.t
     - To run ETL pipeline that cleans data and stores in database
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
     - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`. In case the script does not finish on your hardware, you can
+        reduce the parameters for the gridsearch by outcommenting them in the `build_model` function of the script.
 
 2. Run the following command in the app's directory to run your web app.
     `python run.py`

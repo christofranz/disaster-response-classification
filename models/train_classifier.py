@@ -75,14 +75,15 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
 
+    # in case your hardware takes too long, feel free to comment out
+    # some of the following parameters inside the dict
     parameters = {
-        #'vect__ngram_range': ((1, 1), (1, 2)),
-        # 'vect__max_df': (0.5, 0.75, 1.0),
-        #'vect__max_features': (None, 5000, 10000),
-        #'tfidf__use_idf': (True, False),
-        #'clf__estimator__n_estimators': [50, 100, 200],
-        #'clf__estimator__min_samples_split': [2, 3, 4],
-        'clf__estimator__min_samples_split': [2],
+        'vect__ngram_range': ((1, 1), (1, 2)),
+        'vect__max_df': (0.5, 0.75, 1.0),
+        'vect__max_features': (None, 5000, 10000),
+        'tfidf__use_idf': (True, False),
+        'clf__estimator__n_estimators': [50, 100, 200],
+        'clf__estimator__min_samples_split': [2, 3, 4],
     }
 
     cv = GridSearchCV(pipeline, param_grid=parameters)
@@ -124,7 +125,7 @@ def save_model(model, model_filepath):
 
 def main():
     if len(sys.argv) == 3:
-        database_filepath, model_filepath = sys.argv[1:]
+        database_filepath, model_filepath, fast = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
         X, Y, category_names = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
