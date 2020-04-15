@@ -77,5 +77,5 @@ heroku link
 screenshots
 
 ## Licensing<a name="licensing"></a>
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 This app was completed as a project of the Udacity Data Science Nanodegree Program. The data was originally provided by Figure Eight.
