@@ -79,8 +79,6 @@ On the test data the classifier achieves an accuracy of ~94 %. However, the prec
 and test the classifier is highly imbalanced - this is valid for almost all categories. Further work would be necessary to try to solve this issue. For example,
 more/other data could be collected or try to resemple the dataset.
 
-heroku
-
 ### Screenshots
 ![Header](images/header.png)
 ![Category Distribution](images/category_distribution_all.png)
