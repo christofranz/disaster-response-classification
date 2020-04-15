@@ -1,4 +1,5 @@
 import pickle
+import pprint
 import re
 import sys
 
@@ -75,17 +76,18 @@ def build_model():
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
 
+    # in case your hardware takes too long, feel free to comment out
+    # some of the following parameters inside the dict
     parameters = {
-        #'vect__ngram_range': ((1, 1), (1, 2)),
-        # 'vect__max_df': (0.5, 0.75, 1.0),
-        #'vect__max_features': (None, 5000, 10000),
-        #'tfidf__use_idf': (True, False),
-        #'clf__estimator__n_estimators': [50, 100, 200],
-        #'clf__estimator__min_samples_split': [2, 3, 4],
-        'clf__estimator__min_samples_split': [2],
+        'vect__ngram_range': ((1, 1), (1, 2)),
+        'vect__max_df': (0.5, 0.75, 1.0),
+        'vect__max_features': (None, 5000, 10000),
+        'tfidf__use_idf': (True, False),
+        'clf__estimator__n_estimators': [50], 100, 200],
+        'clf__estimator__min_samples_split': [2, 3, 4],
     }
 
-    cv = GridSearchCV(pipeline, param_grid=parameters)
+    cv = GridSearchCV(pipeline, param_grid=parameters, verbose=4)
 
     return cv
 
@@ -104,7 +106,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
         recall_list.append(report["weighted avg"]["recall"])
         # print report for each category
         print(category)
-        print(report)
+        pprint(report)
         
     # print overall metrics
     print("Average accuracy: {}".format(np.mean(np.array(accuracy_list))))

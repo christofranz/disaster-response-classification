@@ -33,10 +33,13 @@ Alternatively, you can directly install them with `pip install -r requirements.t
     - To run ETL pipeline that cleans data and stores in database
         `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
     - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`. In case the script does not finish on your hardware, you can
+        reduce the parameters for the gridsearch by outcommenting them in the `build_model` function of the script.
 
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
+
+    - In case you named the database and the model differently than in the instructions above, you need to adapt the names in the `run.py` script.
 
 3. Go to http://0.0.0.0:3001/ 
 
@@ -72,7 +75,11 @@ The most important files in this repository:
 
 ## Results<a name="results"></a>
 
-heroku link
+On the test data the classifier achieves an accuracy of ~94 %. However, the precision and recall (if not weighted) is much lower. The data used to train
+and test the classifier is highly imbalanced - this is valid for almost all categories. Further work would be necessary to try to solve this issue. For example,
+more/other data could be collected or try to resemple the dataset.
+
+heroku
 
 ### Screenshots
 ![Header](images/header.png)
