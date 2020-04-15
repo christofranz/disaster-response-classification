@@ -75,7 +75,11 @@ The most important files in this repository:
 
 ## Results<a name="results"></a>
 
-heroku link
+On the test data the classifier achieves an accuracy of ~94 %. However, the precision and recall (if not weighted) is much lower. The data used to train
+and test the classifier is highly imbalanced - this is valid for almost all categories. Further work would be necessary to try to solve this issue. For example,
+more/other data could be collected or try to resemple the dataset.
+
+heroku
 
 screenshots
 
