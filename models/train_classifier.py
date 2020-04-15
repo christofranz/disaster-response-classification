@@ -43,6 +43,7 @@ def load_data(database_filepath):
 
     return X, Y, category_names
 
+
 def tokenize(text):
     """
     Create tokens from the text.
