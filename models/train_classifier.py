@@ -71,6 +71,7 @@ def tokenize(text):
 
 
 def build_model():
+    """Build a gridsearch estimator."""
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -94,6 +95,17 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Evaluate the model on the test data.
+
+    Prints the precision, recall and f1 score for each category
+    together with the overall accuracy, precision and recall.
+
+    :param model: Model used for fitting the training data
+    :param X_test: Feature data for testing
+    :param Y_test: Response variables for the test data
+    :param category_names: List of strings with the category names
+    """
     Y_pred = model.predict(X_test)
     accuracy_list = []
     precision_list = []
