@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 from sqlalchemy import create_engine
 
+
 def load_data(messages_filepath, categories_filepath):
     """
     Load messages and categories into a merged dataframe.
@@ -21,7 +22,6 @@ def load_data(messages_filepath, categories_filepath):
     # merge the dataframes on the id and return
     df = pd.merge(messages, categories, on=["id"])
     return df
-
 
 
 def clean_data(df):
@@ -62,6 +62,7 @@ def clean_data(df):
     df.drop_duplicates(subset="message", inplace=True)
 
     return df
+
 
 def save_data(df, database_filename):
     """
