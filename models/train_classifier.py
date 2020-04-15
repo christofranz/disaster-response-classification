@@ -1,5 +1,4 @@
 import pickle
-import pprint
 import re
 import sys
 
@@ -119,7 +118,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
         recall_list.append(report["weighted avg"]["recall"])
         # print report for each category
         print(category)
-        pprint(report)
+        print(report)
         
     # print overall metrics
     print("Average accuracy: {}".format(np.mean(np.array(accuracy_list))))
