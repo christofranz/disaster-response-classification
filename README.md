@@ -74,7 +74,11 @@ The most important files in this repository:
 
 heroku link
 
-screenshots
+### Screenshots
+![Header](images/header.png)
+![Category Distribution](images/category_distribution_all.png)
+![Category Distribution Pie](images/category_distribution_pie.png)
+![Classification Result](images/classification_result.png)
 
 ## Licensing<a name="licensing"></a>
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
