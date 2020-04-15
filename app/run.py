@@ -6,7 +6,7 @@ import plotly
 from flask import Flask, jsonify, render_template, request
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Pie
 from sqlalchemy import create_engine
 
 app = Flask(__name__)
@@ -21,6 +21,22 @@ def tokenize(text):
         clean_tokens.append(clean_tok)
 
     return clean_tokens
+
+
+def contains_words(message, words):
+    """
+    Checks if a message contains certain words.
+
+    :param message: Text message to check
+    :param words: List of words
+    
+    :return: Boolean if all words are contained in the message
+    """
+    for w in words:
+        if str(message).lower().find(w) < 0:
+            return False
+    return True
+
 
 # load data
 engine = create_engine('sqlite:///../data/DisasterResponses.db')
@@ -65,7 +81,7 @@ def index():
         }
     ]
     
-    # 
+    # occurences of the categories in the data
     category_occurence = list((df.iloc[:, 4:] != 0).sum().sort_values(ascending=False) / df.shape[0])
     category_names = list(df.iloc[:, 4:].columns)
     category_names = [cat.replace("_", " ") for cat in category_names]
@@ -99,6 +115,38 @@ def index():
             }
         }
     )
+
+    # distribution of categories when text contains "need" and "water"
+    df["contains_words"] = df["message"].apply(lambda x: contains_words(x, ["need", "water"]))
+    df_need_water = df[df["contains_words"] == True]
+    category_distribution = df_need_water.drop(["contains_words"], axis=1).iloc[:, 4:].sum().sort_values(ascending=False)
+
+    graphs.append(
+        {
+            'data': [
+                Pie(
+                    labels=category_distribution.keys()[:15],
+                    values=category_distribution[:15],
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of Categories <br>'
+                'when the Message Contains the words "need", "water"',
+                'annotations': [dict(
+                    x=0.5,
+                    y=-0.25,
+                    xref='paper',
+                    yref='paper',
+                    text='From all messages containing the words "need" and "water",' 
+                    '<br> how is the distribution of the categories? One message can have <br>'
+                    'several categories associated to it. Only the 15 categories with the highest <br>'
+                    'distribution are considered for this visualization.',
+                    showarrow = False)]
+            }
+        }
+    )
+
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
