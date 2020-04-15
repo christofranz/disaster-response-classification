@@ -39,6 +39,8 @@ Alternatively, you can directly install them with `pip install -r requirements.t
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
 
+    - In case you named the database and the model differently than in the instructions above, you need to adapt the names in the `run.py` script.
+
 3. Go to http://0.0.0.0:3001/ 
 
     - here you can type any text and the model will classify it into 36 different categories
