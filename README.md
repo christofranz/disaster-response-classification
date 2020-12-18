@@ -24,7 +24,7 @@ You will need the standard data science libraries found in the Anaconda distribu
 - Sqlalchemy
 - Pickle
 
-Alternatively, you can directly install them with `pip install -r requirements.txt`. The code should run with no issues using Python versions 3.*.
+Alternatively, you can directly install them with `pip install -r requirements.txt`. Additionally, you need to install the nltk data with `python -m nltk.downloader punkt wordnet`. The code should run with no issues using Python versions 3.*.
 
 ### Instructions
 
